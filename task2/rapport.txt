@@ -1,0 +1,12 @@
+Manipulations effectuées :
+- Création du dockerfile
+- Dans le dossier src/ -> "npm init" puis "npm install --save chance" pour le générateur aléatoire
+- Toujours dans src/ -> création et édition du index.js
+- dans task2/ -> "docker build -t task2 ." puis "docker run"
+
+Dans src/ :
+- "npm install --save express"
+- édition de index.js
+- "node index.js"
+- Ouvrir le navigateur, aller à l'adresse localhost:3000
+- Build et run l'image docker, s'y connecter par browser (docker inspect pour obtenir l'ip)
