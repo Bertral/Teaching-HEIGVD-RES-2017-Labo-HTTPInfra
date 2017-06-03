@@ -1,3 +1,5 @@
+Application de lancer de dé
+
 Manipulations effectuées :
 - Création du dockerfile
 - Dans le dossier src/ -> "npm init" puis "npm install --save chance" pour le générateur aléatoire
