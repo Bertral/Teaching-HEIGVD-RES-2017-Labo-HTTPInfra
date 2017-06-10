@@ -1,0 +1,11 @@
+
+BUILD : docker build -t task1 .
+
+RUN : docker run -p 9090:80 task1
+
+Inspect pour obtenir l'ip, puis accéder à l'ip depuis le browser.
+
+Le dockerfile copie le contenu de ./html vers /var/www/html pour remplir l'image docker qui n'a pas de contenu html au démarrage. ./html contient un one-page téléchargé depuis https://startbootstrap.com/template-overviews/grayscale/
+
+Les fichiers de config dans l'image sont dans /etc/apache2
+Pour y aller : docker exec -it [nom du container] /bin/bash
