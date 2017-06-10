@@ -62,6 +62,6 @@ Manipulations effectuées :
 - Ajouter la ligne "php /var/apache2/templates/config-template.php > /etc/apache2/sites-available/001-reverse-proxy.conf" au script apache2-foreground pour que le template écrase notre configuration après qu'il soit généré.
 
 Test :
-- Lancer le script "test.sh" et noter les deux adresses IP des containers static et dynamic qui s'affichent.
 - Build les containers task4-1 et task4-2.
+- Lancer le script "test.sh" et noter les deux adresses IP des containers static et dynamic qui s'affichent.
 - Lancer la commande "docker run -d -e STATIC_APP=[ip de l'app static]:80 -e DYNAMIC_APP=[ip de l'app dynamic]:3000 --name apache_rp -p 8080:80 task5". Le site demo.res.ch:8080 devrait être accessible.
