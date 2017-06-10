@@ -27,7 +27,7 @@ Test du fonctionnement : build et run l'image docker, s'y connecter par browser 
 La configuration statique est "fragile" car l'adresse de redirection du proxy est codée en dur, alors que les adresses cibles peuvent changer à chaque démarrage des containers (à corriger à chaque fois dans 001-reverse-proxy.conf).
 
 Manipulations effectuées :
-- Création du dockerfile. Il copie les fichiers du dossier conf/ dans /etc/apache2, puis lance le module proxy, proxy_http, et active les sites 000-* et 001-*.
+- Création du dockerfile. Il copie les fichiers du dossier conf/ dans /etc/apache2, puis lance le module proxy, proxy_http, et active les sites 000-\* et 001-\*.
 - Build l'image avec "docker build -t task3 ."
 
 Configuration à effectuer pour les tests (à chque fois à cause de la config statique) :
@@ -42,7 +42,6 @@ Configuration à effectuer pour les tests (à chque fois à cause de la config s
 ## Task 4
 Manipulations effectuées :
 - Copie des fichiers de task1, 2 et 3 dans le dossier task4.
-- Ajout de l'installation de vim aux dockerfiles de task1, task2 et task3.
 - Dans task1/html/index.html, ajouter <script src="js/dice.js"></script> juste avant </body>.
 - Dans task1/html/js/, créer le fichier dice.js dans le dossier js/ du container task4-1.
 - Build la nouvelle version de task1 avec "docker build -t task4-1 ." et task2 avec "docker build -t task4-2 .", idem pour task3.
@@ -54,3 +53,15 @@ Pour tester le fonctionnement, lancer les 3 containers, recharger demo.res.ch:80
 La démo ne fonctionnerait pas sans reverse proxy car le navigateur (pour des raisons de sécurité) n'exécutera pas un script se trouvant sur un serveur différent du site visité.
 
 ## Task 5
+Manipulations effectuées :
+- Copier le dossier contenu de task4/task3/ dans task5/.
+- Créer le script apache2-foreground en récupérant son contenu de https://github.com/docker-library/php/blob/master/5.6/apache/apache2-foreground. Le rendre exécutable avec "chmod 755 apache2-foreground". L'éditer pour ajouter l'affichage de deux nouvelles variables d'environnement (ip des applications dynamiques et statiques).
+- Editer le dockerfile de task3 pour copier apache2-foreground dans /usr/local/bin/.
+- Dans task3/templates/ créer un fichier config-template.php qui génère notre 001-reverse-proxy.conf avec les adresses ip récupérées des variables d'environnement.
+- Editer le dockerfile de task3 pour copier ce template dans la config d'apache.
+- Ajouter la ligne "php /var/apache2/templates/config-template.php > /etc/apache2/sites-available/001-reverse-proxy.conf" au script apache2-foreground pour que le template écrase notre configuration après qu'il soit généré.
+
+Test :
+- Build les containers task4-1 et task4-2.
+- Lancer le script "test.sh" et noter les deux adresses IP des containers static et dynamic qui s'affichent.
+- Lancer la commande "docker run -d -e STATIC_APP=[ip de l'app static]:80 -e DYNAMIC_APP=[ip de l'app dynamic]:3000 --name apache_rp -p 8080:80 task5". Le site demo.res.ch:8080 devrait être accessible.
