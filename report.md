@@ -40,6 +40,17 @@ Configuration à effectuer pour les tests (à chque fois à cause de la config s
 - Se connecter à "demo.res.ch:8080" ou "demo.res.ch:8080/api/students/" avec un navigateur internet. Les deux sites doivent fonctionner.
 
 ## Task 4
+Manipulations effectuées :
+- Copie des fichiers de task1, 2 et 3 dans le dossier task4.
+- Ajout de l'installation de vim aux dockerfiles de task1, task2 et task3.
+- Dans task1/html/index.html, ajouter <script src="js/dice.js"></script> juste avant </body>.
+- Dans task1/html/js/, créer le fichier dice.js dans le dossier js/ du container task4-1.
+- Build la nouvelle version de task1 avec "docker build -t task4-1 ." et task2 avec "docker build -t task4-2 .", idem pour task3.
+- Relancer les containers avec "docker run -d --name apache_static task4-1 && docker run -d --name express_dynamic task4-2 && docker run -d -p 8080:80 --name apache_rp task4-3"
+- Reconfigurer les IP si nécessaire (Task 3).
 
+Pour tester le fonctionnement, lancer les 3 containers, recharger demo.res.ch:8080, appuyer sur F12 et afficher l'onglet "Network". L'appel à dice.js y est listé. Le sous-titre de la page doit changer toutes les 2 secodes.
+
+La démo ne fonctionnerait pas sans reverse proxy car le navigateur (pour des raisons de sécurité) n'exécutera pas un script se trouvant sur un serveur différent du site visité.
 
 ## Task 5
