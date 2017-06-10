@@ -19,11 +19,25 @@ Manipulations effectuées :
 
 Dans src/ :
 - "npm install --save express" pour installer express, qui nous permettra de répondre aux requêtes de la ressource "/".
-- édition de index.js pour utiliser express.
+- Edition de index.js pour utiliser express.
+
 Test du fonctionnement : build et run l'image docker, s'y connecter par browser ("docker inspect" pour obtenir l'ip !) sur le port 3000. Il devrait s'afficher "{"type":"d6","result":X}".
 
 ## Task 3
+La configuration statique est "fragile" car l'adresse de redirection du proxy est codée en dur, alors que les adresses cibles peuvent changer à chaque démarrage des containers (à corriger à chaque fois dans 001-reverse-proxy.conf).
 
+Manipulations effectuées :
+- Création du dockerfile. Il copie les fichiers du dossier conf/ dans /etc/apache2, puis lance le module proxy, proxy_http, et active les sites 000-* et 001-*.
+- Build l'image avec "docker build -t task3 ."
+
+Configuration à effectuer pour les tests (à chque fois à cause de la config statique) :
+- Démarrer les containers task1 et task2.
+- Faire des docker inspect pour obtenir les ip de task1 et task2.
+- Configuration (dans conf/sites-available/001-reverse-proxy.conf) avec les ip des containers task1 et task2.
+- Démarrer le container task3 avec "docker run -d -p 8080:80 task3".
+- Trouver l'adresse ip de la vm docker (avec ifconfig ou équivalent)
+- Ajouter la ligne "[ip de la vm] demo.res.ch" au fichier hosts (/etc/hosts sur linux).
+- Se connecter à "demo.res.ch:8080" ou "demo.res.ch:8080/api/students/" avec un navigateur internet. Les deux sites doivent fonctionner.
 
 ## Task 4
 
