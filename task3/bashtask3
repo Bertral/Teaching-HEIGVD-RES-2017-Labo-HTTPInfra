@@ -1,0 +1,7 @@
+#! /bin/bash
+# Lab RES-HTTP
+# task3
+docker build -t task3 .
+docker run -d -p 9090:80 task1
+docker run -d -p 8080:3000 task2
+docker run -d -p 7070:80 task3

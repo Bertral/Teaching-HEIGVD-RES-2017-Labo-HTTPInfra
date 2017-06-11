@@ -15,7 +15,7 @@ Manipulations effectuées :
 - Création du dockerfile. Il copie le répertoire src/ dans /opt/app dans l'image docker, puis lance /opt/app/index.js (point d'entrée de l'application dynamique).
 - Dans le dossier src/ -> "npm init" puis "npm install --save chance" pour installer le générateur aléatoire.
 - Toujours dans src/ -> création et édition de index.js.
-- dans task2/ -> "docker build -t task2 ." puis "docker run task2"
+- dans task2/ -> "docker build -t task2 ." puis "docker run -p8080:3000 task2"
 
 Dans src/ :
 - "npm install --save express" pour installer express, qui nous permettra de répondre aux requêtes de la ressource "/".
@@ -34,10 +34,10 @@ Configuration à effectuer pour les tests (à chque fois à cause de la config s
 - Démarrer les containers task1 et task2.
 - Faire des docker inspect pour obtenir les ip de task1 et task2.
 - Configuration (dans conf/sites-available/001-reverse-proxy.conf) avec les ip des containers task1 et task2.
-- Démarrer le container task3 avec "docker run -d -p 8080:80 task3".
+- Démarrer le container task3 avec "docker run -d -p 7070:80 task3".
 - Trouver l'adresse ip de la vm docker (avec ifconfig ou équivalent)
 - Ajouter la ligne "[ip de la vm] demo.res.ch" au fichier hosts (/etc/hosts sur linux).
-- Se connecter à "demo.res.ch:8080" ou "demo.res.ch:8080/api/students/" avec un navigateur internet. Les deux sites doivent fonctionner.
+- Se connecter à "demo.res.ch:7070" ou "demo.res.ch:7070/api/students/" avec un navigateur internet. Les deux sites doivent fonctionner.
 
 ## Task 4
 Manipulations effectuées :
@@ -45,10 +45,10 @@ Manipulations effectuées :
 - Dans task1/html/index.html, ajouter <script src="js/dice.js"></script> juste avant </body>.
 - Dans task1/html/js/, créer le fichier dice.js dans le dossier js/ du container task4-1.
 - Build la nouvelle version de task1 avec "docker build -t task4-1 ." et task2 avec "docker build -t task4-2 .", idem pour task3.
-- Relancer les containers avec "docker run -d --name apache_static task4-1 && docker run -d --name express_dynamic task4-2 && docker run -d -p 8080:80 --name apache_rp task4-3"
+- Relancer les containers avec "docker run -d --name apache_static task4-1 && docker run -d --name express_dynamic task4-2 && docker run -d -p 7070:80 --name apache_rp task4-3"
 - Reconfigurer les IP si nécessaire (Task 3).
 
-Pour tester le fonctionnement, lancer les 3 containers, recharger demo.res.ch:8080, appuyer sur F12 et afficher l'onglet "Network". L'appel à dice.js y est listé. Le sous-titre de la page doit changer toutes les 2 secodes.
+Pour tester le fonctionnement, lancer les 3 containers, recharger demo.res.ch:7070, appuyer sur F12 et afficher l'onglet "Network". L'appel à dice.js y est listé. Le sous-titre de la page doit changer toutes les 2 secodes.
 
 La démo ne fonctionnerait pas sans reverse proxy car le navigateur (pour des raisons de sécurité) n'exécutera pas un script se trouvant sur un serveur différent du site visité.
 

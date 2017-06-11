@@ -1,0 +1,5 @@
+#! /bin/bash
+# Lab RES-HTTP
+# task2
+docker build -t task2 .
+docker run -p 8080:3000 task2
