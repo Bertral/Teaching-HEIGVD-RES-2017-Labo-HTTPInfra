@@ -1,17 +1,12 @@
 #! /bin/bash
 # Lab RES-HTTP
 # task3
-cd task1
-docker build -t task4-1 .
-cd ..
+docker kill $(docker ps -aq)
+docker rm $(docker ps -aq)
 
-cd task2
-docker build -t task4-2 .
-cd ..
-
-cd task3
-docker build -t task4-3 .
-cd ..
+docker build -t task4-1 task1/
+docker build -t task4-2 task2/
+docker build -t task4-3 task3/
 
 docker run -d --name apache_static task4-1
 docker run -d --name express_dynamic task4-2

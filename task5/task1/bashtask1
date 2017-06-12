@@ -1,8 +1,5 @@
 #! /bin/bash
 # Lab RES-HTTP
 # task1
-docker kill $(docker ps -aq)
-docker rm $(docker ps -aq)
-
 docker build -t task1 .
 docker run -p 9090:80 task1

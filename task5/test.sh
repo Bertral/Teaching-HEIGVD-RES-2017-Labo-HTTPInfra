@@ -1,6 +1,14 @@
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
+#! /bin/bash
+# Lab RES-HTTP
+# task5
+docker stop $(docker ps -aq)
+docker rm $(docker ps -aq)
+
+docker build -t task4-1 task1/
+docker build -t task4-2 task2/
+
 docker build -t task5 .
+
 docker run -d task4-1
 docker run -d task4-1
 docker run -d task4-1

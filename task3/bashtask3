@@ -1,6 +1,9 @@
 #! /bin/bash
 # Lab RES-HTTP
 # task3
+docker kill $(docker ps -aq)
+docker rm $(docker ps -aq)
+
 docker build -t task3 .
 docker run -d -p 9090:80 task1
 docker run -d -p 8080:3000 task2

@@ -49,6 +49,8 @@ Manipulations effectuées :
 - Reconfigurer les IP si nécessaire (Task 3).
 
 Pour tester le fonctionnement, lancer les 3 containers, recharger demo.res.ch:7070, appuyer sur F12 et afficher l'onglet "Network". L'appel à dice.js y est listé. Le sous-titre de la page doit changer toutes les 2 secodes.
+Ou
+http://demo.res.ch:7070/api/students/
 
 La démo ne fonctionnerait pas sans reverse proxy car le navigateur (pour des raisons de sécurité) n'exécutera pas un script se trouvant sur un serveur différent du site visité.
 
@@ -64,4 +66,4 @@ Manipulations effectuées :
 Test :
 - Build les containers task4-1 et task4-2.
 - Lancer le script "test.sh" et noter les deux adresses IP des containers static et dynamic qui s'affichent.
-- Lancer la commande "docker run -d -e STATIC_APP=[ip de l'app static]:80 -e DYNAMIC_APP=[ip de l'app dynamic]:3000 --name apache_rp -p 8080:80 task5". Le site demo.res.ch:8080 devrait être accessible.
+- Lancer la commande "docker run -d -e STATIC_APP=[STATIC]:80 -e DYNAMIC_APP=[DYNAMIC]:3000 --name apache_rp -p 8080:80 task5". Le site demo.res.ch:8080 devrait être accessible.
